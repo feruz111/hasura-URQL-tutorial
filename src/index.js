@@ -1,17 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import {
+  Provider,
+  Client,
+  defaultExchanges,
+  dedupExchange,
+  fetchExchange,
+} from "urql";
+import { cacheExchange } from "@urql/exchange-graphcache";
+import { delayExchange } from "./utils/delay";
+
+const cache = cacheExchange({});
+
+const client = new Client({
+  url: "https://feruz-test.hasura.app/v1/graphql",
+  exchanges: [
+    delayExchange({ delayMs: 1000 }),
+    dedupExchange,
+    cache,
+    fetchExchange,
+  ],
+});
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider value={client}>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </Provider>,
+  document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
