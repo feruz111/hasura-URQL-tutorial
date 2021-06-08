@@ -1,0 +1,10 @@
+mutation InsertTask($description: String = "", $title: String = "") {
+  insert_tasks_one(
+    object: { description: $description, isDone: false, title: $title }
+  ) {
+    description
+    id
+    isDone
+    title
+  }
+}

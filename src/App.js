@@ -1,65 +1,36 @@
 import "./App.css";
-import { useMutation, useQuery } from "urql";
-import gql from "graphql-tag";
 import React, { useState, useEffect } from "react";
-
-const GET_USERS = gql`
-  query Tasks {
-    tasks {
-      id
-      isDone
-      title
-      description
-    }
-  }
-`;
-
-const INSERT_TASK = gql`
-  mutation InsertTask($description: String = "", $title: String = "") {
-    insert_tasks_one(
-      object: { description: $description, isDone: false, title: $title }
-    ) {
-      description
-      id
-      isDone
-      title
-    }
-  }
-`;
-
-const CHANGE_STATUS = gql`
-  mutation ChangeStatus($id: uuid = "", $isDone: Boolean = false) {
-    update_tasks_by_pk(pk_columns: { id: $id }, _set: { isDone: $isDone }) {
-      description
-      id
-      isDone
-      title
-    }
-  }
-`;
-const DELETE_TASK = gql`
-  mutation DeleteTask($id: uuid = "") {
-    delete_tasks_by_pk(id: $id) {
-      id
-    }
-  }
-`;
+import {
+  useChangeStatusMutation,
+  useChangeTitleMutation,
+  useDeleteTaskMutation,
+  useInsertTaskMutation,
+  useTasksQuery,
+} from "./codegen";
 
 function App() {
   const [taskValue, setTaskValue] = useState("");
+  const [changeTitleValue, setChangeTittleValue] = useState("");
+  const [idForChangeTitle, setIdForChangeTitle] = useState("");
+  const [editMode, setEditMode] = useState(false);
 
-  const [{ data, fetching, error }, executeQuery] = useQuery({
-    query: GET_USERS,
-  });
-  const [state, executeMutation] = useMutation(INSERT_TASK);
-  const [changeStatus, changeStatusMutation] = useMutation(CHANGE_STATUS);
-  const [deleteTask, deleteTaskMutation] = useMutation(DELETE_TASK);
+  const [{ data, fetching, error }, executeQuery] = useTasksQuery();
+  const [state, executeMutation] = useInsertTaskMutation();
+  const [changeStatus, changeStatusMutation] = useChangeStatusMutation();
+  const [deleteTask, deleteTaskMutation] = useDeleteTaskMutation();
+  const [changeTitleM, changeTitleMutation] = useChangeTitleMutation();
 
   const addTask = () => {
     executeMutation({ title: taskValue });
   };
   const onChangeHandler = (e) => {
     setTaskValue(e.target.value);
+  };
+  const onChangeTitle = (e) => {
+    setChangeTittleValue(e.target.value);
+  };
+  const changeTitle = () => {
+    changeTitleMutation({ id: idForChangeTitle, title: changeTitleValue });
   };
 
   if (fetching) return <div>Fetching</div>;
@@ -69,6 +40,13 @@ function App() {
     <div className="App">
       <input onChange={onChangeHandler} />
       <button onClick={addTask}>+</button>
+      {editMode && (
+        <div>
+          <label>Chage text</label>
+          <input value={changeTitleValue} onChange={onChangeTitle} />
+          <button onClick={changeTitle}>change</button>
+        </div>
+      )}
       {data.tasks.map((task) => {
         return (
           <div className="tasks">
@@ -80,6 +58,14 @@ function App() {
               type="checkbox"
             ></input>
             <li>{task.title}</li>
+            <button
+              onClick={() => {
+                setIdForChangeTitle(task.id);
+                setEditMode(!editMode);
+              }}
+            >
+              {editMode ? "hide" : "edit"}
+            </button>
             <button onClick={() => deleteTaskMutation({ id: task.id })}>
               X
             </button>

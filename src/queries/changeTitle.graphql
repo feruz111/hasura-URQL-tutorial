@@ -1,0 +1,8 @@
+mutation ChangeTitle($id: uuid = "", $title: String = "") {
+  update_tasks_by_pk(pk_columns: { id: $id }, _set: { title: $title }) {
+    description
+    id
+    isDone
+    title
+  }
+}

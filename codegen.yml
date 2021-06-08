@@ -1,0 +1,11 @@
+overwrite: true
+schema: 'https://feruz-test.hasura.app/v1/graphql'
+documents: 'src/**/*.graphql'
+generates:
+  src/codegen.ts:
+    config:
+      withHooks: true
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-urql'

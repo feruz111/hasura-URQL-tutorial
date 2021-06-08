@@ -1,0 +1,8 @@
+mutation ChangeStatus($id: uuid = "", $isDone: Boolean = false) {
+  update_tasks_by_pk(pk_columns: { id: $id }, _set: { isDone: $isDone }) {
+    description
+    id
+    isDone
+    title
+  }
+}
