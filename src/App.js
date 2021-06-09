@@ -1,19 +1,26 @@
+import { useMachine } from "@xstate/react";
+import React, { useState } from "react";
 import "./App.css";
-import React, { useState, useEffect } from "react";
 import {
   useChangeStatusMutation,
   useChangeTitleMutation,
   useDeleteTaskMutation,
   useInsertTaskMutation,
-  useTasksQuery,
+  useTasksQuery
 } from "./codegen";
+import { Loader } from "./components/Loader";
+import { machine } from "./machines/initMachine";
 
 function App() {
+  //machine
+  const [current, send] = useMachine(machine);
+  //local state
   const [taskValue, setTaskValue] = useState("");
   const [changeTitleValue, setChangeTittleValue] = useState("");
   const [idForChangeTitle, setIdForChangeTitle] = useState("");
   const [editMode, setEditMode] = useState(false);
 
+  //queries
   const [{ data, fetching, error }, executeQuery] = useTasksQuery();
   const [state, executeMutation] = useInsertTaskMutation();
   const [changeStatus, changeStatusMutation] = useChangeStatusMutation();
@@ -21,7 +28,14 @@ function App() {
   const [changeTitleM, changeTitleMutation] = useChangeTitleMutation();
 
   const addTask = () => {
-    executeMutation({ title: taskValue });
+    send("TOGGLE");
+
+    executeMutation({ title: taskValue }).then(() => {
+      executeQuery({
+        requestPolicy: "network-only",
+      });
+      send("TOGGLE");
+    });
   };
   const onChangeHandler = (e) => {
     setTaskValue(e.target.value);
@@ -30,10 +44,28 @@ function App() {
     setChangeTittleValue(e.target.value);
   };
   const changeTitle = () => {
-    changeTitleMutation({ id: idForChangeTitle, title: changeTitleValue });
+    send("TOGGLE");
+    changeTitleMutation({ id: idForChangeTitle, title: changeTitleValue }).then(
+      () => {
+        executeQuery({
+          requestPolicy: "network-only",
+        });
+        send("TOGGLE");
+      }
+    );
+    setEditMode(false);
+    setChangeTittleValue("");
   };
 
-  if (fetching) return <div>Fetching</div>;
+  if (current.matches("modifyingState")) {
+    return <Loader />;
+  }
+  if (fetching)
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   if (error) return <div>Error</div>;
 
   return (
@@ -52,7 +84,13 @@ function App() {
           <div className="tasks">
             <input
               onChange={() => {
-                changeStatusMutation({ id: task.id, isDone: !task.isDone });
+                send("TOGGLE");
+                changeStatusMutation({
+                  id: task.id,
+                  isDone: !task.isDone,
+                }).then(() => {
+                  send("TOGGLE");
+                });
               }}
               checked={task.isDone}
               type="checkbox"
@@ -66,7 +104,17 @@ function App() {
             >
               {editMode ? "hide" : "edit"}
             </button>
-            <button onClick={() => deleteTaskMutation({ id: task.id })}>
+            <button
+              onClick={() => {
+                send("TOGGLE");
+                deleteTaskMutation({ id: task.id }).then(() => {
+                  executeQuery({
+                    requestPolicy: "network-only",
+                  });
+                  send("TOGGLE");
+                });
+              }}
+            >
               X
             </button>
           </div>
