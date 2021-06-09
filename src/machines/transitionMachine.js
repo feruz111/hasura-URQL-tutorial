@@ -1,7 +1,7 @@
 import { createMachine } from "xstate";
 import { assign } from "xstate";
 
-export const machine = createMachine({
+export const transitionMachine = createMachine({
   id: "initMachine",
   initial: "initState",
   context: {

@@ -1,6 +1,5 @@
-// import gql from 'graphql-tag';
+import gql from 'graphql-tag';
 import * as Urql from 'urql';
-import { gql } from 'urql';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -485,6 +484,19 @@ export type InsertTaskMutation = (
   )> }
 );
 
+export type AddingInBunchMutationVariables = Exact<{
+  objects?: Maybe<Array<Tasks_Insert_Input> | Tasks_Insert_Input>;
+}>;
+
+
+export type AddingInBunchMutation = (
+  { __typename?: 'mutation_root' }
+  & { insert_tasks?: Maybe<(
+    { __typename?: 'tasks_mutation_response' }
+    & Pick<Tasks_Mutation_Response, 'affected_rows'>
+  )> }
+);
+
 export type ChangeStatusMutationVariables = Exact<{
   id?: Maybe<Scalars['uuid']>;
   isDone?: Maybe<Scalars['Boolean']>;
@@ -553,6 +565,17 @@ export const InsertTaskDocument = gql`
 
 export function useInsertTaskMutation() {
   return Urql.useMutation<InsertTaskMutation, InsertTaskMutationVariables>(InsertTaskDocument);
+};
+export const AddingInBunchDocument = gql`
+    mutation AddingInBunch($objects: [tasks_insert_input!] = {}) {
+  insert_tasks(objects: $objects) {
+    affected_rows
+  }
+}
+    `;
+
+export function useAddingInBunchMutation() {
+  return Urql.useMutation<AddingInBunchMutation, AddingInBunchMutationVariables>(AddingInBunchDocument);
 };
 export const ChangeStatusDocument = gql`
     mutation ChangeStatus($id: uuid = "", $isDone: Boolean = false) {

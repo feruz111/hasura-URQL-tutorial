@@ -6,14 +6,15 @@ import {
   useChangeTitleMutation,
   useDeleteTaskMutation,
   useInsertTaskMutation,
-  useTasksQuery
+  useTasksQuery,
 } from "./codegen";
 import { Loader } from "./components/Loader";
-import { machine } from "./machines/initMachine";
+import { TodosInBunch } from "./components/TodosInBunch";
+import { transitionMachine } from "./machines/transitionMachine";
 
 function App() {
   //machine
-  const [current, send] = useMachine(machine);
+  const [current, send] = useMachine(transitionMachine);
   //local state
   const [taskValue, setTaskValue] = useState("");
   const [changeTitleValue, setChangeTittleValue] = useState("");
@@ -26,7 +27,7 @@ function App() {
   const [changeStatus, changeStatusMutation] = useChangeStatusMutation();
   const [deleteTask, deleteTaskMutation] = useDeleteTaskMutation();
   const [changeTitleM, changeTitleMutation] = useChangeTitleMutation();
-
+  //functionHandlers
   const addTask = () => {
     send("TOGGLE");
 
@@ -70,6 +71,7 @@ function App() {
 
   return (
     <div className="App">
+      <TodosInBunch send={send} executeQuery={executeQuery} />
       <input onChange={onChangeHandler} />
       <button onClick={addTask}>+</button>
       {editMode && (

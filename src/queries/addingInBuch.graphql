@@ -1,0 +1,5 @@
+mutation AddingInBunch($objects: [tasks_insert_input!] = {}) {
+  insert_tasks(objects: $objects) {
+    affected_rows
+  }
+}
