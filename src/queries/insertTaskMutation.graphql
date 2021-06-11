@@ -1,0 +1,7 @@
+mutation InsertTaskMutation($objects: [tasks__insert_input!] = {}) {
+  insert_tasks_(objects: $objects) {
+    returning {
+      name
+    }
+  }
+}

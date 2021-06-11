@@ -1,0 +1,9 @@
+query GetTodolists {
+  todolists {
+    id
+    name
+    tasks {
+      name
+    }
+  }
+}

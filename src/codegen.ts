@@ -12,6 +12,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  timestamptz: any;
   uuid: any;
 };
 
@@ -66,24 +67,48 @@ export type Mutation_Root = {
   __typename?: 'mutation_root';
   /** delete data from the table: "tasks" */
   delete_tasks?: Maybe<Tasks_Mutation_Response>;
+  /** delete data from the table: "tasks_" */
+  delete_tasks_?: Maybe<Tasks__Mutation_Response>;
+  /** delete single row from the table: "tasks_" */
+  delete_tasks__by_pk?: Maybe<Tasks_>;
   /** delete single row from the table: "tasks" */
   delete_tasks_by_pk?: Maybe<Tasks>;
+  /** delete data from the table: "todolists" */
+  delete_todolists?: Maybe<Todolists_Mutation_Response>;
+  /** delete single row from the table: "todolists" */
+  delete_todolists_by_pk?: Maybe<Todolists>;
   /** delete data from the table: "users" */
   delete_users?: Maybe<Users_Mutation_Response>;
   /** delete single row from the table: "users" */
   delete_users_by_pk?: Maybe<Users>;
   /** insert data into the table: "tasks" */
   insert_tasks?: Maybe<Tasks_Mutation_Response>;
+  /** insert data into the table: "tasks_" */
+  insert_tasks_?: Maybe<Tasks__Mutation_Response>;
+  /** insert a single row into the table: "tasks_" */
+  insert_tasks__one?: Maybe<Tasks_>;
   /** insert a single row into the table: "tasks" */
   insert_tasks_one?: Maybe<Tasks>;
+  /** insert data into the table: "todolists" */
+  insert_todolists?: Maybe<Todolists_Mutation_Response>;
+  /** insert a single row into the table: "todolists" */
+  insert_todolists_one?: Maybe<Todolists>;
   /** insert data into the table: "users" */
   insert_users?: Maybe<Users_Mutation_Response>;
   /** insert a single row into the table: "users" */
   insert_users_one?: Maybe<Users>;
   /** update data of the table: "tasks" */
   update_tasks?: Maybe<Tasks_Mutation_Response>;
+  /** update data of the table: "tasks_" */
+  update_tasks_?: Maybe<Tasks__Mutation_Response>;
+  /** update single row of the table: "tasks_" */
+  update_tasks__by_pk?: Maybe<Tasks_>;
   /** update single row of the table: "tasks" */
   update_tasks_by_pk?: Maybe<Tasks>;
+  /** update data of the table: "todolists" */
+  update_todolists?: Maybe<Todolists_Mutation_Response>;
+  /** update single row of the table: "todolists" */
+  update_todolists_by_pk?: Maybe<Todolists>;
   /** update data of the table: "users" */
   update_users?: Maybe<Users_Mutation_Response>;
   /** update single row of the table: "users" */
@@ -98,7 +123,31 @@ export type Mutation_RootDelete_TasksArgs = {
 
 
 /** mutation root */
+export type Mutation_RootDelete_Tasks_Args = {
+  where: Tasks__Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Tasks__By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
 export type Mutation_RootDelete_Tasks_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_TodolistsArgs = {
+  where: Todolists_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Todolists_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -123,9 +172,37 @@ export type Mutation_RootInsert_TasksArgs = {
 
 
 /** mutation root */
+export type Mutation_RootInsert_Tasks_Args = {
+  objects: Array<Tasks__Insert_Input>;
+  on_conflict?: Maybe<Tasks__On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Tasks__OneArgs = {
+  object: Tasks__Insert_Input;
+  on_conflict?: Maybe<Tasks__On_Conflict>;
+};
+
+
+/** mutation root */
 export type Mutation_RootInsert_Tasks_OneArgs = {
   object: Tasks_Insert_Input;
   on_conflict?: Maybe<Tasks_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_TodolistsArgs = {
+  objects: Array<Todolists_Insert_Input>;
+  on_conflict?: Maybe<Todolists_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Todolists_OneArgs = {
+  object: Todolists_Insert_Input;
+  on_conflict?: Maybe<Todolists_On_Conflict>;
 };
 
 
@@ -151,9 +228,37 @@ export type Mutation_RootUpdate_TasksArgs = {
 
 
 /** mutation root */
+export type Mutation_RootUpdate_Tasks_Args = {
+  _set?: Maybe<Tasks__Set_Input>;
+  where: Tasks__Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Tasks__By_PkArgs = {
+  _set?: Maybe<Tasks__Set_Input>;
+  pk_columns: Tasks__Pk_Columns_Input;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_Tasks_By_PkArgs = {
   _set?: Maybe<Tasks_Set_Input>;
   pk_columns: Tasks_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_TodolistsArgs = {
+  _set?: Maybe<Todolists_Set_Input>;
+  where: Todolists_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Todolists_By_PkArgs = {
+  _set?: Maybe<Todolists_Set_Input>;
+  pk_columns: Todolists_Pk_Columns_Input;
 };
 
 
@@ -190,8 +295,16 @@ export type Query_Root = {
   __typename?: 'query_root';
   /** fetch data from the table: "tasks" */
   tasks: Array<Tasks>;
+  /** fetch data from the table: "tasks_" */
+  tasks_: Array<Tasks_>;
+  /** fetch data from the table: "tasks_" using primary key columns */
+  tasks__by_pk?: Maybe<Tasks_>;
   /** fetch data from the table: "tasks" using primary key columns */
   tasks_by_pk?: Maybe<Tasks>;
+  /** fetch data from the table: "todolists" */
+  todolists: Array<Todolists>;
+  /** fetch data from the table: "todolists" using primary key columns */
+  todolists_by_pk?: Maybe<Todolists>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch data from the table: "users" using primary key columns */
@@ -208,7 +321,35 @@ export type Query_RootTasksArgs = {
 };
 
 
+export type Query_RootTasks_Args = {
+  distinct_on?: Maybe<Array<Tasks__Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Tasks__Order_By>>;
+  where?: Maybe<Tasks__Bool_Exp>;
+};
+
+
+export type Query_RootTasks__By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
 export type Query_RootTasks_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Query_RootTodolistsArgs = {
+  distinct_on?: Maybe<Array<Todolists_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Todolists_Order_By>>;
+  where?: Maybe<Todolists_Bool_Exp>;
+};
+
+
+export type Query_RootTodolists_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -230,8 +371,16 @@ export type Subscription_Root = {
   __typename?: 'subscription_root';
   /** fetch data from the table: "tasks" */
   tasks: Array<Tasks>;
+  /** fetch data from the table: "tasks_" */
+  tasks_: Array<Tasks_>;
+  /** fetch data from the table: "tasks_" using primary key columns */
+  tasks__by_pk?: Maybe<Tasks_>;
   /** fetch data from the table: "tasks" using primary key columns */
   tasks_by_pk?: Maybe<Tasks>;
+  /** fetch data from the table: "todolists" */
+  todolists: Array<Todolists>;
+  /** fetch data from the table: "todolists" using primary key columns */
+  todolists_by_pk?: Maybe<Todolists>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch data from the table: "users" using primary key columns */
@@ -248,7 +397,35 @@ export type Subscription_RootTasksArgs = {
 };
 
 
+export type Subscription_RootTasks_Args = {
+  distinct_on?: Maybe<Array<Tasks__Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Tasks__Order_By>>;
+  where?: Maybe<Tasks__Bool_Exp>;
+};
+
+
+export type Subscription_RootTasks__By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
 export type Subscription_RootTasks_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootTodolistsArgs = {
+  distinct_on?: Maybe<Array<Todolists_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Todolists_Order_By>>;
+  where?: Maybe<Todolists_Bool_Exp>;
+};
+
+
+export type Subscription_RootTodolists_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -269,11 +446,165 @@ export type Subscription_RootUsers_By_PkArgs = {
 /** columns and relationships of "tasks" */
 export type Tasks = {
   __typename?: 'tasks';
-  description: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
   id: Scalars['uuid'];
-  isDone: Scalars['Boolean'];
+  isDone?: Maybe<Scalars['Boolean']>;
   title: Scalars['String'];
 };
+
+/** columns and relationships of "tasks_" */
+export type Tasks_ = {
+  __typename?: 'tasks_';
+  created_at: Scalars['timestamptz'];
+  id: Scalars['uuid'];
+  label?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  set_id?: Maybe<Scalars['uuid']>;
+  /** An object relationship */
+  todolist?: Maybe<Todolists>;
+  updated_at: Scalars['timestamptz'];
+};
+
+/** order by aggregate values of table "tasks_" */
+export type Tasks__Aggregate_Order_By = {
+  count?: Maybe<Order_By>;
+  max?: Maybe<Tasks__Max_Order_By>;
+  min?: Maybe<Tasks__Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "tasks_" */
+export type Tasks__Arr_Rel_Insert_Input = {
+  data: Array<Tasks__Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: Maybe<Tasks__On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "tasks_". All fields are combined with a logical 'AND'. */
+export type Tasks__Bool_Exp = {
+  _and?: Maybe<Array<Tasks__Bool_Exp>>;
+  _not?: Maybe<Tasks__Bool_Exp>;
+  _or?: Maybe<Array<Tasks__Bool_Exp>>;
+  created_at?: Maybe<Timestamptz_Comparison_Exp>;
+  id?: Maybe<Uuid_Comparison_Exp>;
+  label?: Maybe<String_Comparison_Exp>;
+  name?: Maybe<String_Comparison_Exp>;
+  set_id?: Maybe<Uuid_Comparison_Exp>;
+  todolist?: Maybe<Todolists_Bool_Exp>;
+  updated_at?: Maybe<Timestamptz_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "tasks_" */
+export enum Tasks__Constraint {
+  /** unique or primary key constraint */
+  NewShapeIdKey = 'new_shape_id_key',
+  /** unique or primary key constraint */
+  NewShapePkey = 'new_shape_pkey'
+}
+
+/** input type for inserting data into table "tasks_" */
+export type Tasks__Insert_Input = {
+  created_at?: Maybe<Scalars['timestamptz']>;
+  id?: Maybe<Scalars['uuid']>;
+  label?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  set_id?: Maybe<Scalars['uuid']>;
+  todolist?: Maybe<Todolists_Obj_Rel_Insert_Input>;
+  updated_at?: Maybe<Scalars['timestamptz']>;
+};
+
+/** order by max() on columns of table "tasks_" */
+export type Tasks__Max_Order_By = {
+  created_at?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+  label?: Maybe<Order_By>;
+  name?: Maybe<Order_By>;
+  set_id?: Maybe<Order_By>;
+  updated_at?: Maybe<Order_By>;
+};
+
+/** order by min() on columns of table "tasks_" */
+export type Tasks__Min_Order_By = {
+  created_at?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+  label?: Maybe<Order_By>;
+  name?: Maybe<Order_By>;
+  set_id?: Maybe<Order_By>;
+  updated_at?: Maybe<Order_By>;
+};
+
+/** response of any mutation on the table "tasks_" */
+export type Tasks__Mutation_Response = {
+  __typename?: 'tasks__mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Tasks_>;
+};
+
+/** on conflict condition type for table "tasks_" */
+export type Tasks__On_Conflict = {
+  constraint: Tasks__Constraint;
+  update_columns?: Array<Tasks__Update_Column>;
+  where?: Maybe<Tasks__Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "tasks_". */
+export type Tasks__Order_By = {
+  created_at?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+  label?: Maybe<Order_By>;
+  name?: Maybe<Order_By>;
+  set_id?: Maybe<Order_By>;
+  todolist?: Maybe<Todolists_Order_By>;
+  updated_at?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: tasks_ */
+export type Tasks__Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "tasks_" */
+export enum Tasks__Select_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Label = 'label',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  SetId = 'set_id',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** input type for updating data in table "tasks_" */
+export type Tasks__Set_Input = {
+  created_at?: Maybe<Scalars['timestamptz']>;
+  id?: Maybe<Scalars['uuid']>;
+  label?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  set_id?: Maybe<Scalars['uuid']>;
+  updated_at?: Maybe<Scalars['timestamptz']>;
+};
+
+/** update columns of table "tasks_" */
+export enum Tasks__Update_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Label = 'label',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  SetId = 'set_id',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
 
 /** Boolean expression to filter rows from the table "tasks". All fields are combined with a logical 'AND'. */
 export type Tasks_Bool_Exp = {
@@ -359,6 +690,119 @@ export enum Tasks_Update_Column {
   IsDone = 'isDone',
   /** column name */
   Title = 'title'
+}
+
+
+/** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
+export type Timestamptz_Comparison_Exp = {
+  _eq?: Maybe<Scalars['timestamptz']>;
+  _gt?: Maybe<Scalars['timestamptz']>;
+  _gte?: Maybe<Scalars['timestamptz']>;
+  _in?: Maybe<Array<Scalars['timestamptz']>>;
+  _is_null?: Maybe<Scalars['Boolean']>;
+  _lt?: Maybe<Scalars['timestamptz']>;
+  _lte?: Maybe<Scalars['timestamptz']>;
+  _neq?: Maybe<Scalars['timestamptz']>;
+  _nin?: Maybe<Array<Scalars['timestamptz']>>;
+};
+
+/** columns and relationships of "todolists" */
+export type Todolists = {
+  __typename?: 'todolists';
+  id: Scalars['uuid'];
+  name: Scalars['String'];
+  /** An array relationship */
+  tasks: Array<Tasks_>;
+};
+
+
+/** columns and relationships of "todolists" */
+export type TodolistsTasksArgs = {
+  distinct_on?: Maybe<Array<Tasks__Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Tasks__Order_By>>;
+  where?: Maybe<Tasks__Bool_Exp>;
+};
+
+/** Boolean expression to filter rows from the table "todolists". All fields are combined with a logical 'AND'. */
+export type Todolists_Bool_Exp = {
+  _and?: Maybe<Array<Todolists_Bool_Exp>>;
+  _not?: Maybe<Todolists_Bool_Exp>;
+  _or?: Maybe<Array<Todolists_Bool_Exp>>;
+  id?: Maybe<Uuid_Comparison_Exp>;
+  name?: Maybe<String_Comparison_Exp>;
+  tasks?: Maybe<Tasks__Bool_Exp>;
+};
+
+/** unique or primary key constraints on table "todolists" */
+export enum Todolists_Constraint {
+  /** unique or primary key constraint */
+  NewSetPkey = 'new_set_pkey'
+}
+
+/** input type for inserting data into table "todolists" */
+export type Todolists_Insert_Input = {
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+  tasks?: Maybe<Tasks__Arr_Rel_Insert_Input>;
+};
+
+/** response of any mutation on the table "todolists" */
+export type Todolists_Mutation_Response = {
+  __typename?: 'todolists_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Todolists>;
+};
+
+/** input type for inserting object relation for remote table "todolists" */
+export type Todolists_Obj_Rel_Insert_Input = {
+  data: Todolists_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: Maybe<Todolists_On_Conflict>;
+};
+
+/** on conflict condition type for table "todolists" */
+export type Todolists_On_Conflict = {
+  constraint: Todolists_Constraint;
+  update_columns?: Array<Todolists_Update_Column>;
+  where?: Maybe<Todolists_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "todolists". */
+export type Todolists_Order_By = {
+  id?: Maybe<Order_By>;
+  name?: Maybe<Order_By>;
+  tasks_aggregate?: Maybe<Tasks__Aggregate_Order_By>;
+};
+
+/** primary key columns input for table: todolists */
+export type Todolists_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "todolists" */
+export enum Todolists_Select_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name'
+}
+
+/** input type for updating data in table "todolists" */
+export type Todolists_Set_Input = {
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+/** update columns of table "todolists" */
+export enum Todolists_Update_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name'
 }
 
 /** columns and relationships of "users" */
@@ -538,6 +982,21 @@ export type DeleteTaskMutation = (
   )> }
 );
 
+export type GetTodolistsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTodolistsQuery = (
+  { __typename?: 'query_root' }
+  & { todolists: Array<(
+    { __typename?: 'todolists' }
+    & Pick<Todolists, 'id' | 'name'>
+    & { tasks: Array<(
+      { __typename?: 'tasks_' }
+      & Pick<Tasks_, 'name'>
+    )> }
+  )> }
+);
+
 export type TasksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -546,6 +1005,38 @@ export type TasksQuery = (
   & { tasks: Array<(
     { __typename?: 'tasks' }
     & Pick<Tasks, 'id' | 'isDone' | 'title' | 'description'>
+  )> }
+);
+
+export type InsertTaskMutationMutationVariables = Exact<{
+  objects?: Maybe<Array<Tasks__Insert_Input> | Tasks__Insert_Input>;
+}>;
+
+
+export type InsertTaskMutationMutation = (
+  { __typename?: 'mutation_root' }
+  & { insert_tasks_?: Maybe<(
+    { __typename?: 'tasks__mutation_response' }
+    & { returning: Array<(
+      { __typename?: 'tasks_' }
+      & Pick<Tasks_, 'name'>
+    )> }
+  )> }
+);
+
+export type InsertTodolistMutationVariables = Exact<{
+  objects?: Maybe<Array<Todolists_Insert_Input> | Todolists_Insert_Input>;
+}>;
+
+
+export type InsertTodolistMutation = (
+  { __typename?: 'mutation_root' }
+  & { insert_todolists?: Maybe<(
+    { __typename?: 'todolists_mutation_response' }
+    & { returning: Array<(
+      { __typename?: 'todolists' }
+      & Pick<Todolists, 'name'>
+    )> }
   )> }
 );
 
@@ -616,6 +1107,21 @@ export const DeleteTaskDocument = gql`
 export function useDeleteTaskMutation() {
   return Urql.useMutation<DeleteTaskMutation, DeleteTaskMutationVariables>(DeleteTaskDocument);
 };
+export const GetTodolistsDocument = gql`
+    query GetTodolists {
+  todolists {
+    id
+    name
+    tasks {
+      name
+    }
+  }
+}
+    `;
+
+export function useGetTodolistsQuery(options: Omit<Urql.UseQueryArgs<GetTodolistsQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GetTodolistsQuery>({ query: GetTodolistsDocument, ...options });
+};
 export const TasksDocument = gql`
     query Tasks {
   tasks {
@@ -629,4 +1135,30 @@ export const TasksDocument = gql`
 
 export function useTasksQuery(options: Omit<Urql.UseQueryArgs<TasksQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<TasksQuery>({ query: TasksDocument, ...options });
+};
+export const InsertTaskMutationDocument = gql`
+    mutation InsertTaskMutation($objects: [tasks__insert_input!] = {}) {
+  insert_tasks_(objects: $objects) {
+    returning {
+      name
+    }
+  }
+}
+    `;
+
+export function useInsertTaskMutationMutation() {
+  return Urql.useMutation<InsertTaskMutationMutation, InsertTaskMutationMutationVariables>(InsertTaskMutationDocument);
+};
+export const InsertTodolistDocument = gql`
+    mutation InsertTodolist($objects: [todolists_insert_input!] = {}) {
+  insert_todolists(objects: $objects) {
+    returning {
+      name
+    }
+  }
+}
+    `;
+
+export function useInsertTodolistMutation() {
+  return Urql.useMutation<InsertTodolistMutation, InsertTodolistMutationVariables>(InsertTodolistDocument);
 };

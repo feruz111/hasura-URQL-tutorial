@@ -1,0 +1,7 @@
+mutation InsertTodolist($objects: [todolists_insert_input!] = {}) {
+  insert_todolists(objects: $objects) {
+    returning {
+      name
+    }
+  }
+}
