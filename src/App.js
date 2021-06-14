@@ -11,7 +11,7 @@ import {
 import { Loader } from "./components/Loader";
 import { TodosInBunch } from "./components/TodosInBunch";
 import { transitionMachine } from "./machines/transitionMachine";
-
+//test
 function App() {
   //machine
   const [current, send] = useMachine(transitionMachine);
